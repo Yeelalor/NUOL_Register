@@ -120,7 +120,7 @@ export default {
         {
           icon: 'mdi-book-open-variant',
           title: 'ລົງທະບຽນ',
-          to: '/teachers/teachers',
+          to: '/register',
         },
         {
           icon: 'mdi-credit-card-outline',
