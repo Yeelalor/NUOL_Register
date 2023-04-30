@@ -33,7 +33,7 @@
           item-value="id"
           item-text="name"
         ></v-select>
-        <v-btn color="primary" @click="submitForm"> ເພີ່ມ </v-btn>
+        <v-btn color="primary" @click="submitForm"> ແກ້ໄຂ </v-btn>
       </v-form>
     </v-card-text>
   </v-card>
@@ -44,7 +44,12 @@ import swal from 'sweetalert2'
 export default {
   data() {
     return {
-      form: {},
+      form: {
+        name: null,
+        schoolYear: null,
+        course: null,
+        months: [],
+      },
       valid: false,
       submissions: [],
       months: [],
@@ -56,11 +61,33 @@ export default {
     this.onGet()
     this.onGetMonths()
     this.onGetCourse()
+
+    this.$axios
+      .get('/manage/level/' + this.$route.params.id)
+      .then(({ data }) => {
+        this.form.name = data.name
+        this.form.schoolYear = data.schoolYearId
+        this.form.course = data.courseId
+      })
+    this.$axios
+      .get('/manage/level-months/' + this.$route.params.id)
+      .then(({ data }) => {
+        if (data) {
+          const list = data.map((el) => {
+            return el.month
+          })
+          console.log(list)
+          this.form.months = list
+        }
+      })
   },
   methods: {
     async submitForm() {
       try {
-        const response = await this.$axios.post('/manage/level', this.form)
+        const response = await this.$axios.put(
+          '/manage/level/' + this.$route.params.id,
+          this.form
+        )
         this.$router.go(-1)
       } catch (error) {
         swal.fire({
