@@ -98,7 +98,7 @@ export default {
         {
           icon: 'mdi-calendar-search-outline',
           title: 'ຂໍ້ມູນສົກຮຽນ',
-          to: '/inspire',
+          to: '/school-year',
         },
         {
           icon: 'mdi-calendar-search-outline',
