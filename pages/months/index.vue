@@ -1,29 +1,39 @@
 <template>
-    <div>
-        <v-btn to="/months/store" color="primary" dense small>ເພີ່ມລາຍການ</v-btn>
-        <v-data-table :items="list" :headers="headers" dense>
-            <template #[`item.actions`]="{ item }">
-                <v-btn small text color="error" @click="onDelete(item.id)">ລົບເດືອນ</v-btn>
-                <v-dialog  width="500">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-btn color="primary lighten-2" text small dark v-bind="attrs" v-on="on" @click="addEditData(item)">
+    <div class="pt-4">
+        <v-card width="800" class="mx-auto">
+            <v-card-text>
+                <v-btn to="/months/store" color="primary" dense small>ເພີ່ມລາຍການ</v-btn>
+                <v-data-table :items="list" :headers="headers" dense>
+                    <template #[`item.actions`]="{ item }">
+                        <v-btn small text color="error" @click="onDelete(item.id)">ລົບເດືອນ</v-btn>
+                        <v-btn color="primary lighten-2" text small dark v-bind="attrs" v-on="on"
+                            @click="addEditData(item)">
                             ແກ້ໄຂ
                         </v-btn>
                     </template>
-
-                    <v-card>
-                        <v-card-title>ແກ້ໄຂ</v-card-title>
-                        <v-card-text>
-                            <v-text-field v-model="form.name" dense outlined label="ເດືອນເປັນພາສາລາວ"></v-text-field>
-                            <v-text-field v-model="form.number" dense outlined label="ເດືອນເປັນຕົວເລກ"></v-text-field>
-                        </v-card-text>
-                    </v-card>
-                </v-dialog>
-            </template>
-        </v-data-table>
+                    
+                </v-data-table>
+            </v-card-text>
+        </v-card>
+        <v-dialog width="500" v-model="showDialogUp">
+            <v-card>
+                <v-card-title>ແກ້ໄຂ</v-card-title>
+                <v-card-text>
+                    <v-text-field v-model="form.name" dense outlined label="ເດືອນເປັນພາສາລາວ"></v-text-field>
+                    <v-text-field v-model="form.number" dense outlined label="ເດືອນເປັນຕົວເລກ"></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" @click="showDialogUp = false">ປິດ</v-btn>
+                    <v-btn color="primary" @click="_onUpdate">ບັນທຶກ</v-btn>
+                    <v-spacer></v-spacer>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 <script>
+import swal from 'sweetalert2'
 export default {
     data() {
         return {
@@ -36,8 +46,10 @@ export default {
             ],
             form: {
                 name: '',
-                number: ''
-            }
+                number: '',
+                key: ''
+            },
+            showDialogUp:false
         }
     },
     mounted() {
@@ -68,9 +80,20 @@ export default {
                 })
             }
         },
-        async addEditData(item){
+        async addEditData(item) {
             this.form.name = item.name
             this.form.number = item.number
+            this.key = item.id
+            this.showDialogUp = true
+        },
+        async _onUpdate() {
+            await this.$axios.$put('/manage/months/' + this.key, this.form).then((data) => {
+                swal.fire({
+                    icon: 'success',
+                    text: 'ສຳເລັດ'
+                })
+                this.get()
+            })
         }
     }
 }
