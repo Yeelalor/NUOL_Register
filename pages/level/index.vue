@@ -1,16 +1,20 @@
 <template>
   <div>
-    <v-btn to="/level/create" small color="primary">ເພີ່ມຊັ້ນຮຽນ</v-btn>
-    <v-data-table :items="cousesSubject" :headers="headers">
-      <template #[`item.actions`]="{ item }">
-        <v-btn small text color="primary" :to="`/level/${item.id}`">
-          ແກ້ໄຂ
-        </v-btn>
-        <v-btn small text color="error" @click="onDelete(item.id)">
-          ລົບອອກ
-        </v-btn>
-      </template>
-    </v-data-table>
+    <v-card max-width="1000" class="mx-auto" elevation="1">
+      <v-card-text>
+        <v-btn to="/level/create" small color="primary">ເພີ່ມຊັ້ນຮຽນ</v-btn>
+        <v-data-table :items="cousesSubject" :headers="headers">
+          <template #[`item.actions`]="{ item }">
+            <v-btn small text color="primary" :to="`/level/${item.id}`">
+              ແກ້ໄຂ
+            </v-btn>
+            <v-btn small text color="error" @click="onDelete(item.id)">
+              ລົບອອກ
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
