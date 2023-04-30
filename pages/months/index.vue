@@ -92,6 +92,7 @@ export default {
                     icon: 'success',
                     text: 'ສຳເລັດ'
                 })
+                this.showDialogUp = false
                 this.get()
             })
         }
