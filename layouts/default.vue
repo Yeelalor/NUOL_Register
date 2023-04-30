@@ -120,7 +120,7 @@ export default {
         {
           icon: 'mdi-human-male-board-poll',
           title: 'ລົງທະບຽນ',
-          to: '/teachers/teachers',
+          to: '/register',
         },
         {
           icon: 'mdi-credit-card-outline',
