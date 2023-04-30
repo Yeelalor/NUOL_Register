@@ -105,20 +105,20 @@ export default {
           title: 'ຂໍ້ມູນເດືອນ',
           to: '/months',
         },
+        // {
+        //   icon: 'mdi-book-open-variant',
+        //   title: 'ຂໍ້ມູນຂໍ້ມູນລາຍງານການ',
+        //   to: '/inspire',
+        // },
         {
           icon: 'mdi-book-open-variant',
-          title: 'ຂໍ້ມູນຂໍ້ມູນລາຍງານການ',
-          to: '/inspire',
-        },
-        {
-          icon: 'mdi-book-open-variant',
-          title: 'ຫຼັກສູດ',
+          title: 'ຂໍ້ມູນຫຼັກສູດ',
           to: '/course',
         },
       ],
       itemss: [
         {
-          icon: 'mdi-human-male-board-poll',
+          icon: 'mdi-book-open-variant',
           title: 'ລົງທະບຽນ',
           to: '/register',
         },
@@ -138,3 +138,8 @@ export default {
   },
 }
 </script>
+<style>
+.v-list-item .v-list-item__title, .v-list-item .v-list-item__subtitle{
+  line-height: 3 !important;
+}
+</style>

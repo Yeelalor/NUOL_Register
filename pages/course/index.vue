@@ -1,19 +1,27 @@
 <template>
   <div>
-    <v-btn to="/course/create" small color="primary">ເພີ່ມຫຼັກສຸດ</v-btn>
-    <v-data-table :items="course" :headers="headers">
-      <template #[`item.subjects`]="{ item }">
-        <ul>
-          <li v-for="(data, index) in onSubject(item.id)" :key="index">
-            {{ data.name }}
-          </li>
-        </ul>
-      </template>
-      <template #[`item.actions`]="{ item }">
-        <v-btn small color="primary" :to="`/course/${item.id}`">ແກ້ໄຂ</v-btn>
-        <v-btn small color="error" @click="onDeleteCourse(item.id)">ລົບ</v-btn>
-      </template>
-    </v-data-table>
+    <v-card max-width="1000" class="mx-atuo" elevation="1">
+      <v-card-text>
+        <v-btn to="/course/create" small color="primary">ເພີ່ມຫຼັກສຸດ</v-btn>
+        <v-data-table :items="course" :headers="headers">
+          <template #[`item.subjects`]="{ item }">
+            <ul>
+              <li v-for="(data, index) in onSubject(item.id)" :key="index">
+                {{ data.name }}
+              </li>
+            </ul>
+          </template>
+          <template #[`item.actions`]="{ item }">
+            <v-btn small color="primary" :to="`/course/${item.id}`"
+              >ແກ້ໄຂ</v-btn
+            >
+            <v-btn small color="error" @click="onDeleteCourse(item.id)"
+              >ລົບ</v-btn
+            >
+          </template>
+        </v-data-table>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 <script>
