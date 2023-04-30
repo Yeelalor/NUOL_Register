@@ -83,7 +83,7 @@ export default {
         {
           icon: 'mdi-book-open-page-variant-outline',
           title: 'ຂໍ້ມູນວິຊາຮຽນ',
-          to: '/inspire',
+          to: '/subjects',
         },
         {
           icon: 'mdi-waves',
