@@ -88,7 +88,7 @@ export default {
         {
           icon: 'mdi-waves',
           title: 'ຂໍ້ມູນຊັ້ນຮຽນ',
-          to: '/inspire',
+          to: '/level',
         },
         {
           icon: 'mdi-greenhouse',
@@ -109,6 +109,11 @@ export default {
           icon: 'mdi-book-open-variant',
           title: 'ຂໍ້ມູນຂໍ້ມູນລາຍງານການ',
           to: '/inspire',
+        },
+        {
+          icon: 'mdi-book-open-variant',
+          title: 'ຫຼັກສູດ',
+          to: '/course',
         },
       ],
       itemss: [
