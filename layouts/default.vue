@@ -93,7 +93,7 @@ export default {
         {
           icon: 'mdi-greenhouse',
           title: 'ຂໍ້ມູນຫ້ອງຮຽນ',
-          to: '/inspire',
+          to: '/class/',
         },
         {
           icon: 'mdi-calendar-search-outline',
