@@ -1,15 +1,21 @@
 <template>
-    <div>
+    <div class="pt-4">
         <div>
-            <v-card width="800">
+            <v-card width="500" class="mx-auto">
                 <v-card-title>ຂໍ້ມູນເດືອນ</v-card-title>
                 <v-card-text>
                     <div>
                         <v-text-field v-model="form.name" dense outlined label="ເດືອນເປັນພາສາລາວ"></v-text-field>
                         <v-text-field v-model="form.number" dense outlined label="ເດືອນເປັນຕົວເລກ"></v-text-field>
                     </div>
-                    <v-btn @click="create">ເພີ່ມເດືອນ</v-btn>
+
                 </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn @click="create" small color="primary">ເພີ່ມເດືອນ</v-btn>
+                    <v-spacer></v-spacer>
+
+                </v-card-actions>
             </v-card>
         </div>
     </div>
