@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-container>
-      <v-card flat>
+      <v-card flat max-width="500" class="mx-auto">
         <v-card-title>ຄົ້ນຫາຄະແນນ</v-card-title>
         <v-card-text>
-          <v-row dense>
-            <v-col cols="12" md="3">
+          <v-row>
+            <v-col cols="12" md="12">
               <v-select
                 dense
                 outlined
@@ -13,21 +13,23 @@
                 :items="schoolYear"
                 item-value="id"
                 item-text="name"
+                hide-details="auto"
               ></v-select>
             </v-col>
-            <v-col cols="12" md="3">
+            <v-col cols="12" md="12">
               <v-select
                 dense
                 outlined
                 label="ເດືອນ"
                 :items="['ກັນຍາ', 'ຕຸລາ']"
+                hide-details="auto"
               ></v-select>
             </v-col>
-            <v-col cols="3">
-              <v-btn color="primary">ຄົ້ນຫາ</v-btn>
+            <v-col cols="12">
+              <v-btn color="primary" block>ຄົ້ນຫາ</v-btn>
             </v-col>
           </v-row>
-          <v-simple-table dense style="max-width: 300px">
+          <v-simple-table dense class="mt-5">
             <template v-slot:default>
               <thead>
                 <tr>
