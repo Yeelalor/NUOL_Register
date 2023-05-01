@@ -122,12 +122,12 @@
                                         <v-col cols="12" md="3" sm="3">
                                             <v-text-field v-model="item.name" :items="yearList" item-text="name"
                                                 item-value="id" dense outlined label="ຊື່ລາຍການລົງທະບຽນ"
-                                                @change="_onGetLevel"></v-text-field>
+                                                ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="3" sm="3">
                                             <v-text-field v-model="item.price" :items="levelList"
                                                 item-text="levelName" item-value="levelId" dense outlined label="ລາຄາ"
-                                                @change="_onGetClass"></v-text-field>
+                                                ></v-text-field>
                                         </v-col>
                                         <v-col cols="12" md="3" sm="3">
                                             <v-text-field v-model="item.remark" :items="classList" dense outlined
