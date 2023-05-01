@@ -233,7 +233,6 @@ export default {
     async _onGet() {
       try {
         await this.$axios.$get('/teacher').then((data) => {
-          console.log(data)
           this.teacher_list = data
         })
       } catch (error) {
