@@ -3,8 +3,8 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - NOUl_Register',
-    title: 'NOUl_Register',
+    titleTemplate: '%s - ມສ ສາທິດ',
+    title: 'ລະບົບລົງທະບຽນ',
     htmlAttrs: {
       lang: 'en',
     },
@@ -36,6 +36,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    'cookie-universal-nuxt',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
