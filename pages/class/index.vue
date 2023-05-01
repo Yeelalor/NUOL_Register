@@ -1,6 +1,6 @@
 <template>
   <div class="pt-4">
-    <v-card width="800" class="mx-auto" elevation="1">
+    <v-card width="1000" class="mx-auto" elevation="1">
       <v-card-text>
         <div>
           <v-btn color="primary" to="/class/create" small>ເພີ່ມລາຍການ</v-btn>

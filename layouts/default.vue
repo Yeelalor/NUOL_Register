@@ -64,6 +64,7 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  middleware: 'authAdmin',
   data() {
     return {
       clipped: false,
@@ -76,14 +77,24 @@ export default {
           to: '/teachers/edit',
         },
         {
-          icon: 'mdi-account-school',
-          title: 'ຂໍ້ມູນນັກຮຽນ',
-          to: '/inspire',
+          icon: 'mdi-calendar-search-outline',
+          title: 'ຂໍ້ມູນສົກຮຽນ',
+          to: '/school-year',
+        },
+        {
+          icon: 'mdi-calendar-month',
+          title: 'ຂໍ້ມູນເດືອນ',
+          to: '/months',
         },
         {
           icon: 'mdi-book-open-page-variant-outline',
           title: 'ຂໍ້ມູນວິຊາຮຽນ',
           to: '/subjects',
+        },
+        {
+          icon: 'mdi-book-open-variant',
+          title: 'ຂໍ້ມູນຫຼັກສູດ',
+          to: '/course',
         },
         {
           icon: 'mdi-waves',
@@ -96,24 +107,9 @@ export default {
           to: '/class/',
         },
         {
-          icon: 'mdi-calendar-search-outline',
-          title: 'ຂໍ້ມູນສົກຮຽນ',
-          to: '/school-year',
-        },
-        {
-          icon: 'mdi-calendar-search-outline',
-          title: 'ຂໍ້ມູນເດືອນ',
-          to: '/months',
-        },
-        // {
-        //   icon: 'mdi-book-open-variant',
-        //   title: 'ຂໍ້ມູນຂໍ້ມູນລາຍງານການ',
-        //   to: '/inspire',
-        // },
-        {
-          icon: 'mdi-book-open-variant',
-          title: 'ຂໍ້ມູນຫຼັກສູດ',
-          to: '/course',
+          icon: 'mdi-account-school',
+          title: 'ຂໍ້ມູນນັກຮຽນ',
+          to: '/inspire',
         },
       ],
       itemss: [
@@ -133,7 +129,6 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js',
     }
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card width="800" class="mx-auto" elevation="1">
+    <v-card width="1000" class="mx-auto" elevation="1">
       <v-card-title>ເພີ່ມວິຊາໃຫມ່</v-card-title>
       <v-card-text>
         <div style="display: flex">
