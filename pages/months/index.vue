@@ -1,6 +1,6 @@
 <template>
-    <div class="pt-4">
-        <v-card width="800" class="mx-auto">
+    <div>
+        <v-card width="1000" class="mx-auto" elevation="1">
             <v-card-text>
                 <v-btn to="/months/store" color="primary" dense small>ເພີ່ມລາຍການ</v-btn>
                 <v-data-table :items="list" :headers="headers" dense>

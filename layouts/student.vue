@@ -1,7 +1,9 @@
 <template>
   <v-app style="background-color: #f1f2f3">
     <v-app-bar fixed app>
-      <h3 style="cursor: pointer" @click="$router.push('/')">ໂຮງຮຽນມັດທະຍົມສຶກສາສົມບູນສາທິດ</h3>
+      <h3 style="cursor: pointer" @click="$router.push('/')">
+        ໂຮງຮຽນມັດທະຍົມສຶກສາສົມບູນສາທິດ
+      </h3>
       <v-spacer></v-spacer>
       <v-btn v-if="isLogin" to="/student/search-score" elevation="0"
         >ກວດສອບຄະແນນ</v-btn
@@ -25,7 +27,10 @@ export default {
     },
   },
   mounted() {
-    if (this.$cookies.get('user')) {
+    if (
+      this.$cookies.get('user') &&
+      this.$cookies.get('userType') === 'student'
+    ) {
       this.$store.commit('login/setLogin', true)
     }
   },

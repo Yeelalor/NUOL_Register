@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card max-width="1000" class="mx-atuo" elevation="1">
+    <v-card max-width="1000" class="mx-auto" elevation="1">
       <v-card-text>
         <v-btn to="/course/create" small color="primary">ເພີ່ມຫຼັກສຸດ</v-btn>
         <v-data-table :items="course" :headers="headers">
