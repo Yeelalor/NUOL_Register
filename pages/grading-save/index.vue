@@ -194,7 +194,12 @@ export default {
         this.form.items = this.student_list
         await this.$axios
           .$post(`/manage/student/score`, this.form)
-          .then((data) => {})
+          .then((data) => {
+            swal.fire({
+              icon:'success',
+              text:'ສຳເລັດ'
+            })
+          })
       } catch (error) {
         swal.fire({
           icon: 'error',
