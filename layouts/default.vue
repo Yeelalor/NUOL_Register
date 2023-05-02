@@ -214,7 +214,7 @@ export default {
       reportList: [
         {
           icon: 'mdi-book-open-variant',
-          title: 'ຜົນການລົງທະບຽນ',
+          title: 'ການລົງທະບຽນ',
           to: '/reports/register-result',
         },
         {
