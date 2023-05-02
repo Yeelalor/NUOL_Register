@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3>ເບີ່ງຄະແນນນັກຮຽນ</h3>
-    <br />
+    <h3>ລາຍງານຜົນການຮຽນ</h3>
     <v-row dense>
       <v-col cols="2">
         <v-select
