@@ -91,6 +91,27 @@
           </v-list>
         </v-list-group>
       </v-list>
+      <v-list style="margin-top: -20px">
+        <v-list-group :value="false" prepend-icon="mdi-poll">
+          <template v-slot:activator>
+            <v-list-item-title style="margin-left: -20px">
+              ລາຍງານ
+            </v-list-item-title>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, index) in reportList"
+              :key="index"
+              :to="item.to"
+            >
+              <v-list-item-action>
+                <v-icon light> {{ item.icon }} </v-icon>
+              </v-list-item-action>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-list-group>
+      </v-list>
      
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app elevation="0">
@@ -190,7 +211,38 @@ export default {
           to: '/teacher-course',
         },
       ],
-
+      reportList: [
+        {
+          icon: 'mdi-book-open-variant',
+          title: 'ຜົນການລົງທະບຽນ',
+          to: '/reports/register-result',
+        },
+        {
+          icon: 'mdi-credit-card-outline',
+          title: 'ນັກຮຽນຈ່າຍຄ່າລົງທະບຽນ',
+          to: '/reports/register-payment',
+        },
+        {
+          icon: 'mdi-star',
+          title: 'ຜົນການຮຽນ',
+          to: '/reports/result',
+        },
+        {
+          icon: 'mdi-account-school',
+          title: 'ລາຍຊື່ນັກຮຽນ',
+          to: '/reports/all-student',
+        },
+        {
+          icon: 'mdi-billboard',
+          title: 'ໃບບິນລົງທະບຽນ',
+          to: '/reports/register-bill',
+        },
+        {
+          icon: 'mdi-cash-sync',
+          title: 'ໃບບິນເກັບເງິນ',
+          to: '/reports/bill-receive-money',
+        },
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,

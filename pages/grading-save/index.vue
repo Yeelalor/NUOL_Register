@@ -49,7 +49,7 @@
             item-value="id"
             dense
             outlined
-            label="ເລືອກວິຊາຮຽນ"
+            label="ເລືອກເດືອນ"
             hide-details="auto"
             @change="_onGetclass"
           ></v-select>
