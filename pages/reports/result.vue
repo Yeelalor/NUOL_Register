@@ -1,6 +1,7 @@
 <template>
   <div>
     <h3>ລາຍງານຜົນການຮຽນ</h3>
+    <br />
     <v-row dense>
       <v-col cols="2">
         <v-select

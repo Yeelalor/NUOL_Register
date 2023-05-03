@@ -112,7 +112,14 @@
           </v-list>
         </v-list-group>
       </v-list>
-     
+      <v-list>
+        <v-list-item @click="onLogout">
+          <v-list-item-action>
+            <v-icon light>mdi-logout-variant </v-icon>
+          </v-list-item-action>
+          <v-list-item-title>ອອກຈາກລະບົບ</v-list-item-title>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app elevation="0">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -247,6 +254,13 @@ export default {
       right: true,
       rightDrawer: false,
     }
+  },
+  methods: {
+    onLogout() {
+      this.$cookies.remove('user')
+      this.$cookies.remove('userType')
+      this.$router.push('/admin/login')
+    },
   },
 }
 </script>

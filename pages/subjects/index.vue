@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card width="1000" class="mx-auto" elevation="1">
-      <v-card-title>ເພີ່ມວິຊາໃຫມ່</v-card-title>
+      <v-card-title>ຂໍ້ມູນວິຊາຮຽນ</v-card-title>
       <v-card-text>
         <div style="display: flex">
           <div style="width: 400px">
@@ -13,7 +13,7 @@
               class="mr-4"
             ></v-text-field>
           </div>
-          <v-btn color="primary" @click="_onInsert">ບັນທຶກ</v-btn>
+          <v-btn color="primary" @click="_onInsert">ເພີ່ມວິຊາໃຫມ່</v-btn>
         </div>
         <v-data-table :items="list" :headers="headers" dense>
           <template #[`item.actions`]="{ item }">
