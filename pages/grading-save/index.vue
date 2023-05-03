@@ -86,13 +86,13 @@ export default {
   data() {
     return {
       yearList: [],
+      class_list: [],
       form: {
         monthId: null,
         classId: null,
         levelId: null,
         subjectId: null,
       },
-      class_list: [],
       student_head: [
         { text: 'ຊື່ ແລະ ນາມສະກຸນ', value: 'name' },
         { text: 'ປ້ອນຄະແນນ', value: 'create' },
