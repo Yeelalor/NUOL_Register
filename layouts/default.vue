@@ -172,7 +172,7 @@ export default {
         {
           icon: 'mdi-account-school',
           title: 'ຂໍ້ມູນນັກຮຽນ',
-          to: '/inspire',
+          to: '/student/students',
         },
       ],
       itemss: [
