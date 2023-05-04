@@ -1,10 +1,14 @@
 <template>
   <div>
     <v-card max-width="1000" class="mx-auto" elevation="1">
+      <v-card-title>
+        ຂໍ້ມູນສົກຮຽນ
+        <v-spacer></v-spacer>
+        <v-btn to="/school-year/create" small color="primary">
+          ເພີ່ມສົກຮຽນ
+        </v-btn>
+      </v-card-title>
       <v-card-text>
-        <v-btn to="/school-year/create" small color="primary"
-          >ເພີ່ມສົກຮຽນ</v-btn
-        >
         <v-data-table :headers="headers" :items="submissions">
           <template #[`item.actions`]="{ item }">
             <v-btn small text color="error" @click="onEdit(item)">

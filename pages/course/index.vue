@@ -1,8 +1,12 @@
 <template>
   <div>
     <v-card max-width="1000" class="mx-auto" elevation="1">
-      <v-card-text>
+      <v-card-title>
+        ຂໍ້ມູນຫຼັກສູດການຮຽນ
+        <v-spacer></v-spacer>
         <v-btn to="/course/create" small color="primary">ເພີ່ມຫຼັກສຸດ</v-btn>
+      </v-card-title>
+      <v-card-text>
         <v-data-table :items="course" :headers="headers">
           <template #[`item.subjects`]="{ item }">
             <ul>

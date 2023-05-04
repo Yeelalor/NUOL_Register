@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <v-carousel style="border-radius:10px">
+      <v-carousel style="border-radius:10px" hide-delimiters>
         <v-carousel-item v-for="(item, i) in items" :key="i" :src="item.src"></v-carousel-item>
       </v-carousel>
     </v-container>

@@ -1,8 +1,12 @@
 <template>
   <div>
     <v-card max-width="1000" class="mx-auto" elevation="1">
-      <v-card-text>
+      <v-card-title>
+        ຂໍ້ມູນຊັ້ນຮຽນ
+        <v-spacer></v-spacer>
         <v-btn to="/level/create" small color="primary">ເພີ່ມຊັ້ນຮຽນ</v-btn>
+      </v-card-title>
+      <v-card-text>
         <v-data-table :items="cousesSubject" :headers="headers">
           <template #[`item.actions`]="{ item }">
             <v-btn small text color="primary" :to="`/level/${item.id}`">

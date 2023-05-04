@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <v-row>
-        <v-col cols="3"
+        <v-col cols="2"
           ><v-select
             v-model="form.schoolYear"
             :items="yearList"
@@ -15,7 +15,7 @@
             @change="_onGetclass"
           ></v-select
         ></v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           <v-select
             v-model="form.classId"
             :items="class_list"
@@ -28,7 +28,7 @@
             @change="onGetSubject"
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           <v-select
             v-model="form.subjectId"
             :items="subjectList"
@@ -41,7 +41,7 @@
             @change="_onGetclass"
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           <v-select
             v-model="form.monthId"
             :items="monthList"
@@ -54,29 +54,37 @@
             @change="_onGetclass"
           ></v-select>
         </v-col>
-        <v-col cols="3">
+        <v-col cols="2">
           <v-btn color="primary" @click="onGetStudent">ຄົ້ນຫາ</v-btn>
         </v-col>
       </v-row>
-      <v-card max-width="500" flat class="mt-10">
-        <v-data-table :headers="student_head" :items="student_list" dense>
-          <template #[`item.create`]="{ item }">
-            <v-text-field
-              dense
-              outlined
-              v-model="item.score"
-              label="ຄະແນນ"
-              class="mt-5"
-            ></v-text-field>
-          </template>
-          <template #[`item.name`]="{ item }">
-            <span>{{ item.name }} {{ item.surname }}</span>
-          </template>
-        </v-data-table>
-        <div>
-          <v-btn color="primary" @click="onSave">ບັນທຶກ</v-btn>
-        </div>
-      </v-card>
+      <v-form ref="form" v-model="valid">
+        <v-card max-width="500" flat class="mt-10">
+          <v-data-table :headers="student_head" :items="student_list" dense>
+            <template #[`item.create`]="{ item }">
+              <v-text-field
+                dense
+                outlined
+                v-model="item.score"
+                label="ຄະແນນ"
+                class="mt-1 mb-1"
+                hide-details="auto"
+                :rules="[
+                  (v) => !!v || 'ຕ້ອງປ້ອນ',
+                  (v) => (v && v >= 0) || 'ຕ້ອງໃຫຍ່ກວ່າ 0',
+                  (v) => (v && v <= 10) || 'ຕ້ອງນ້ອຍກວ່າ 10',
+                ]"
+              ></v-text-field>
+            </template>
+            <template #[`item.name`]="{ item }">
+              <span>{{ item.name }} {{ item.surname }}</span>
+            </template>
+          </v-data-table>
+          <div>
+            <v-btn color="primary" @click="onSave">ບັນທຶກ</v-btn>
+          </div>
+        </v-card>
+      </v-form>
     </v-container>
   </div>
 </template>
@@ -100,6 +108,7 @@ export default {
       student_list: [],
       subjectList: [],
       monthList: [],
+      valid: true,
     }
   },
   mounted() {
@@ -190,21 +199,23 @@ export default {
       }
     },
     async onSave() {
-      try {
-        this.form.items = this.student_list
-        await this.$axios
-          .$post(`/manage/student/score`, this.form)
-          .then((data) => {
-            swal.fire({
-              icon:'success',
-              text:'ສຳເລັດ'
+      if (this.$refs.form.validate()) {
+        try {
+          this.form.items = this.student_list
+          await this.$axios
+            .$post(`/manage/student/score`, this.form)
+            .then((data) => {
+              swal.fire({
+                icon: 'success',
+                text: 'ສຳເລັດ',
+              })
             })
+        } catch (error) {
+          swal.fire({
+            icon: 'error',
+            text: error,
           })
-      } catch (error) {
-        swal.fire({
-          icon: 'error',
-          text: error,
-        })
+        }
       }
     },
   },

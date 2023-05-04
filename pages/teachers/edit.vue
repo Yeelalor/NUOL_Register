@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-card>
-      <v-card-title>ຂໍ້ມູນອາຈານ</v-card-title>
-      <v-card-text class="d-flex align-center">
+      <v-card-title>
+        ຂໍ້ມູນອາຈານ
         <v-spacer></v-spacer>
         <v-btn color="primary" small to="/teachers/store">ເພີ່ມ</v-btn>
-      </v-card-text>
+      </v-card-title>
       <v-card-text>
         <v-data-table :items="teacher_list" :headers="teacher_head">
           <template v-slot:item="row">

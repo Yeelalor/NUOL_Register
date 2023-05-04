@@ -1,10 +1,12 @@
 <template>
-  <div class="pt-4">
+  <div>
     <v-card width="1000" class="mx-auto" elevation="1">
+      <v-card-title>
+        ຂໍ້ມູນຫ້ອງຮຽນ
+        <v-spacer></v-spacer>
+        <v-btn color="primary" to="/class/create" small>ເພີ່ມລາຍການ</v-btn>
+      </v-card-title>
       <v-card-text>
-        <div>
-          <v-btn color="primary" to="/class/create" small>ເພີ່ມລາຍການ</v-btn>
-        </div>
         <v-data-table :items="list" :headers="headers" dense class="mt-1">
           <template #[`item.actions`]="{ item }">
             <v-btn
