@@ -1,25 +1,13 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
+    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
+      <v-list v-if="$cookies.get('userType') !== 'teacher'">
         <v-list-group :value="false" prepend-icon="mdi-hammer-wrench">
           <template v-slot:activator>
-            <v-list-item-title style="margin-left: -20px"
-              >ຈັດການຂໍ້ມູນພື້ນຖານ</v-list-item-title
-            >
+            <v-list-item-title style="margin-left: -20px">ຈັດການຂໍ້ມູນພື້ນຖານ</v-list-item-title>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in items"
-              :key="index"
-              :to="item.to"
-            >
+            <v-list-item v-for="(item, index) in items" :key="index" :to="item.to">
               <v-list-item-action>
                 <v-icon light> {{ item.icon }} </v-icon>
               </v-list-item-action>
@@ -28,7 +16,7 @@
           </v-list>
         </v-list-group>
       </v-list>
-      <v-list style="margin-top: -20px">
+      <v-list v-if="$cookies.get('userType') !== 'teacher'" style="margin-top: -20px">
         <v-list-group :value="false" prepend-icon="mdi-book-open-blank-variant">
           <template v-slot:activator>
             <v-list-item-title style="margin-left: -20px">
@@ -36,11 +24,7 @@
             </v-list-item-title>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in tableList"
-              :key="index"
-              :to="item.to"
-            >
+            <v-list-item v-for="(item, index) in tableList" :key="index" :to="item.to">
               <v-list-item-action>
                 <v-icon light> {{ item.icon }} </v-icon>
               </v-list-item-action>
@@ -49,19 +33,13 @@
           </v-list>
         </v-list-group>
       </v-list>
-      <v-list style="margin-top: -20px">
+      <v-list v-if="$cookies.get('userType') !== 'teacher'" style="margin-top: -20px">
         <v-list-group :value="false" prepend-icon="mdi-account-plus">
           <template v-slot:activator>
-            <v-list-item-title style="margin-left: -20px"
-              >ລົງທະບຽນ</v-list-item-title
-            >
+            <v-list-item-title style="margin-left: -20px">ລົງທະບຽນ</v-list-item-title>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in itemss"
-              :key="index"
-              :to="item.to"
-            >
+            <v-list-item v-for="(item, index) in itemss" :key="index" :to="item.to">
               <v-list-item-action>
                 <v-icon light> {{ item.icon }} </v-icon>
               </v-list-item-action>
@@ -70,7 +48,7 @@
           </v-list>
         </v-list-group>
       </v-list>
-      <v-list style="margin-top: -20px">
+      <v-list :style="`margin-top: ${$cookies.get('userType') === 'teacher' ? '0px' : '-20px'}`">
         <v-list-group :value="false" prepend-icon="mdi-school">
           <template v-slot:activator>
             <v-list-item-title style="margin-left: -20px">
@@ -78,11 +56,7 @@
             </v-list-item-title>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in elevationList"
-              :key="index"
-              :to="item.to"
-            >
+            <v-list-item v-for="(item, index) in elevationList" :key="index" :to="item.to">
               <v-list-item-action>
                 <v-icon light> {{ item.icon }} </v-icon>
               </v-list-item-action>
@@ -91,7 +65,7 @@
           </v-list>
         </v-list-group>
       </v-list>
-      <v-list style="margin-top: -20px">
+      <v-list v-if="$cookies.get('userType') !== 'teacher'" style="margin-top: -20px">
         <v-list-group :value="false" prepend-icon="mdi-poll">
           <template v-slot:activator>
             <v-list-item-title style="margin-left: -20px">
@@ -99,11 +73,7 @@
             </v-list-item-title>
           </template>
           <v-list>
-            <v-list-item
-              v-for="(item, index) in reportList"
-              :key="index"
-              :to="item.to"
-            >
+            <v-list-item v-for="(item, index) in reportList" :key="index" :to="item.to">
               <v-list-item-action>
                 <v-icon light> {{ item.icon }} </v-icon>
               </v-list-item-action>

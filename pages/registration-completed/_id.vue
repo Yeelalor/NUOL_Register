@@ -23,7 +23,7 @@
             <td>{{ registration.detail.name }} {{ registration.detail.surname }}</td>
 
             <td>{{ registration.detail.gender }}</td>
-            <td>{{ registration.detail.birthday }}</td>
+            <td>{{ $moment(registration.detail.birthday).format('DD-MM-YYYY') }}</td>
             <td>{{ registration.detail.className }}</td>
             <td>{{ registration.detail.levelName }}</td>
           </tr>

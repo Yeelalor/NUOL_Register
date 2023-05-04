@@ -5,51 +5,19 @@
       <v-card-text>
         <v-row dense>
           <v-col cols="2">
-            <v-text-field
-              v-model="form.name"
-              dense
-              outlined
-              label="ຊື່ນັກຮຽນ"
-              hide-details="auto"
-            ></v-text-field>
+            <v-text-field v-model="form.name" dense outlined label="ຊື່ນັກຮຽນ" hide-details="auto"></v-text-field>
           </v-col>
           <v-col cols="2">
-            <v-select
-              v-model="form.schoolYear"
-              :items="yearList"
-              item-text="name"
-              item-value="id"
-              dense
-              outlined
-              label="ເລືອກສົກຮຽນ"
-              @change="_onGetLevel"
-              hide-details="auto"
-            ></v-select>
+            <v-select v-model="form.schoolYear" :items="yearList" item-text="name" item-value="id" dense outlined
+              label="ເລືອກສົກຮຽນ" @change="_onGetLevel" hide-details="auto"></v-select>
           </v-col>
           <v-col cols="2">
-            <v-select
-              v-model="form.levelId"
-              :items="levelList"
-              item-text="levelName"
-              item-value="levelId"
-              dense
-              outlined
-              label="ເລືອກຊັ້ນຮຽນ"
-              @change="_onGetClass"
-              hide-details="auto"
-            ></v-select>
+            <v-select v-model="form.levelId" :items="levelList" item-text="levelName" item-value="levelId" dense outlined
+              label="ເລືອກຊັ້ນຮຽນ" @change="_onGetClass" hide-details="auto"></v-select>
           </v-col>
           <v-col cols="2">
-            <v-select
-              v-model="form.classId"
-              :items="classList"
-              item-text="name"
-              item-value="id"
-              dense
-              outlined
-              label="ເລືອກຫ້ອງຮຽນ"
-              hide-details="auto"
-            ></v-select>
+            <v-select v-model="form.classId" :items="classList" item-text="name" item-value="id" dense outlined
+              label="ເລືອກຫ້ອງຮຽນ" hide-details="auto"></v-select>
           </v-col>
           <v-col cols="2">
             <v-btn color="primary" @click="onGetStudent">ຄົ້ນຫາ</v-btn>
@@ -64,9 +32,23 @@
             <template #[`item.birthday`]="{ item }">
               <span>{{ $moment(item.birthday).format('DD-MM-YYYY') }}</span>
             </template>
+            <template #[`item.action`]="{ item }">
+              <v-btn color="primary" fab small @click="onGetDataForUpdate(item.id,item.name,item.surname,item.password)"><v-icon>mdi-pencil</v-icon></v-btn>
+            </template>
           </v-data-table>
         </div>
       </v-card-text>
+      <v-dialog v-model="showDiglogUpdate" max-width="400">
+        <v-card>
+          <v-card-title>ແກ້ໄຂ</v-card-title>
+          <v-card-text>
+            <v-text-field outlined label="ຊື່" dense v-model="forms.name"></v-text-field>
+            <v-text-field outlined label="ນາມສະກຸນ" dense v-model="forms.surname"></v-text-field>
+            <v-text-field outlined label="ລະຫັດ" dense v-model="forms.password"></v-text-field>
+            <v-btn color="primary" block rounded @click="onUpdate">ອັບເດດ</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-card>
   </div>
 </template>
@@ -86,6 +68,8 @@ export default {
         schoolYear: null,
         name: null,
       },
+      showDiglogUpdate: false,
+      forms: {},
       student_list: [],
       student_header: [
         { text: 'ຊື່ ແລະ ນາມສະກຸນ', value: 'name' },
@@ -99,6 +83,9 @@ export default {
         { text: 'ຊື່ຜູ້ປົກຄອງ', value: 'parentName' },
         { text: 'ເບີຜູ້ປົກຄອງ', value: 'parentPhone' },
         { text: 'ອາຊີບຜູ້ປົກຄອງ', value: 'parentJob' },
+        { text: 'ຊື່ຜູ້ໃຊ້', value: 'username' },
+        { text: 'ລະຫັດ', value: 'password' },
+        { text: 'action', value: 'action' },
       ],
     }
   },
@@ -107,6 +94,13 @@ export default {
     this.onGetStudent()
   },
   methods: {
+    async onGetDataForUpdate(id,name,surname,pass) {
+      this.showDiglogUpdate = true;
+      this.forms.id = id;
+      this.forms.name = name;
+      this.forms.surname = surname;
+      this.forms.password = pass
+    },
     async onGetStudent() {
       try {
         await this.$axios
@@ -114,6 +108,25 @@ export default {
           .then((data) => {
             this.student_list = data
             console.log('......', data)
+          })
+      } catch (error) {
+        swal.fire({
+          icon: 'error',
+          text: error,
+        })
+      }
+    },
+    async onUpdate() {
+      try {
+        await this.$axios
+          .$put(`/manage/student/${this.forms.id}`, this.forms)
+          .then((data) => {
+            this.onGetStudent()
+            this.showDiglogUpdate = false
+            swal.fire({
+              icon: 'success',
+              text: 'ສຳເລັດ',
+            })
           })
       } catch (error) {
         swal.fire({

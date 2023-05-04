@@ -14,16 +14,22 @@
             <v-btn small text color="error" @click="onEdit(item)">
               ແກ້ໄຂ
             </v-btn>
+            <v-btn v-if="item.isOpening === '1'" small color="error" text @click="onCloseYear(item.id,false)">
+              
+              ປິດລົງທະບຽນ
+            </v-btn>
+            <v-btn v-else small text @click="onCloseYear(item.id,true)">
+             
+              ເປິດລົງທະບຽນ
+            </v-btn>
           </template>
+
         </v-data-table>
         <v-dialog v-model="dialog" max-width="500">
           <v-card>
             <v-card-title>ແກ້ໄຂ</v-card-title>
             <v-card-text>
-              <v-text-field
-                v-model="form.name"
-                label="ຊື່ສົກຮຽນ"
-              ></v-text-field>
+              <v-text-field v-model="form.name" label="ຊື່ສົກຮຽນ"></v-text-field>
               <v-btn color="primary" @click="onEditClick">ແກ້ໄຂ</v-btn>
             </v-card-text>
           </v-card>
@@ -75,6 +81,15 @@ export default {
       this.dialog = false
       this.onGet()
     },
+    async onCloseYear(id, status) {
+      try {
+        const response = await this.$axios.put(`/manage/trigger-school-year/${id}`, { status })
+        this.onGet()
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
   },
 }
 </script>

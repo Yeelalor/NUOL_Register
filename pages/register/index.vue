@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-form ref="form" v-model="valid">
-      <v-card>
+      <v-card flat>
         <v-toolbar flat>
-          <div style="padding-bottom: 20px; padding-top: 20px; width: 100%">
+          <div>
             ລົງທະບຽນ
           </div>
           <template v-slot:extension>
@@ -21,8 +21,61 @@
             <v-card>
               <v-card-text>
                 <v-card flat>
-                  <v-card-title>ຂໍ້ມູນລົງທະບຽນ</v-card-title>
-                  <v-card-text> </v-card-text>
+                  <v-row>
+                    <v-col cols="4"><v-text-field v-model="username" outlined dense
+                        label="ຊື່ຜູ້ໃຊ້"></v-text-field></v-col>
+                    <v-col cols="4"><v-btn color="primary" @click="onSearchForRegister(username)">ຄົ້ນຫາ</v-btn></v-col>
+                  </v-row>
+                  <v-data-table :headers="student_header" :items="student_for_update">
+                    <template #[`item.image`]="{ item }">
+                      <div>
+                        <v-img :src="`http://192.168.0.2:3001/${item.image}`" max-width="100" contain />
+                      </div>
+                    </template>
+                  </v-data-table>
+                  <v-row dense>
+                      <v-col cols="12" md="4" sm="4">
+                        <v-select v-model="form.schoolYear" :items="yearList" item-text="name" item-value="id" dense
+                          outlined label="ເລືອກສົກຮຽນ" :rules="nameRules" @change="_onGetLevel"></v-select>
+                      </v-col>
+                      <v-col cols="12" md="4" sm="4">
+                        <v-select v-model="form.levelId" :items="levelList" item-text="levelName" item-value="levelId"
+                          dense outlined label="ເລືອກຊັ້ນຮຽນ" :rules="nameRules" @change="_onGetClass"></v-select>
+                      </v-col>
+                      <v-col cols="12" md="4" sm="4">
+                        <v-select v-model="form.classId" :items="classList" item-text="name" item-value="id" dense
+                          outlined label="ເລືອກຫ້ອງຮຽນ" :rules="nameRules"></v-select>
+                      </v-col>
+                    </v-row>
+                  <v-card flat>
+                    <h3>ຄ່າທຳນຽມຕ່າງໆ</h3>
+
+                    <v-text-field v-model="invoice.remark" label="ຄຳອະທີບາຍເພີ່ມເຕີມ" :rules="nameRules"
+                      hide-details="auto"></v-text-field>
+
+                    <v-row v-for="(item, index) in invoice.items" :key="index" dense class="pt-4">
+                      <v-col cols="12" md="3" sm="3">
+                        <v-text-field v-model="item.name" :items="yearList" item-text="name" item-value="id" dense
+                          outlined label="ຊື່ລາຍການລົງທະບຽນ" :rules="nameRules"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="3" sm="3">
+                        <v-text-field v-model="item.price" :items="levelList" item-text="levelName" item-value="levelId"
+                          dense outlined label="ລາຄາ" :rules="nameRules"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="3" sm="3">
+                        <v-text-field v-model="item.remark" :items="classList" dense outlined label="ໝາຍເຫດ"
+                          :rules="nameRules"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" md="3" sm="3">
+                        <v-btn color="primary" @click="invoice.items.push({})">ເພີ່ມລາຍການ</v-btn>
+                      </v-col>
+                    </v-row>
+                    <v-card-actions>
+                      <v-btn color="primary" @click="onRegistrationOld">
+                        ລົງທະບຽນ
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
                 </v-card>
               </v-card-text>
             </v-card>
@@ -35,23 +88,12 @@
                   <v-card-text>
                     <v-row>
                       <v-col cols="4" md="4">
-                        <v-text-field
-                          v-model="form.username"
-                          outlined
-                          dense
-                          label="ຊື່ຜູ້ໃຊ້ງານ"
-                          :rules="nameRules"
-                          @change="onChangeUsername"
-                        ></v-text-field>
+                        <v-text-field v-model="form.username" outlined dense label="ຊື່ຜູ້ໃຊ້ງານ" :rules="nameRules"
+                          @change="onChangeUsername"></v-text-field>
                       </v-col>
                       <v-col cols="4" md="4">
-                        <v-text-field
-                          v-model="form.password"
-                          outlined
-                          dense
-                          label="ລະຫັດຜ່ານ"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field v-model="form.password" outlined dense label="ລະຫັດຜ່ານ"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -61,158 +103,70 @@
                   <v-card-text>
                     <v-row dense>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ຊື່"
-                          v-model="form.name"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ຊື່" v-model="form.name" :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ນາມສະກຸນ"
-                          v-model="form.surname"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ນາມສະກຸນ" v-model="form.surname"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-select
-                          :items="genders"
-                          outlined
-                          label="ເລືອກເພດ"
-                          dense
-                          v-model="form.gender"
-                          :rules="nameRules"
-                        ></v-select>
+                        <v-select :items="genders" outlined label="ເລືອກເພດ" dense v-model="form.gender"
+                          :rules="nameRules"></v-select>
                       </v-col>
                     </v-row>
                     <v-row dense>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ວັນເດືອນປີເກີດ"
-                          v-model="form.birthday"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ວັນເດືອນປີເກີດ" v-model="form.birthday"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ທີ່ຢູ່ບ້ານເກີດ"
-                          v-model="form.bornAddress"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ທີ່ຢູ່ບ້ານເກີດ" v-model="form.bornAddress"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ທີ່ຢູ່ປະຈຸບັນ"
-                          v-model="form.address"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ທີ່ຢູ່ປະຈຸບັນ" v-model="form.address"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                     </v-row>
                     <v-row dense>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ຊົນເຜົ່າ"
-                          v-model="form.tribe"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ຊົນເຜົ່າ" v-model="form.tribe"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ສະຖານະ"
-                          v-model="form.status"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ສະຖານະ" v-model="form.status"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ຜູ້ປົກຄອງ"
-                          v-model="form.parent_name"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ຜູ້ປົກຄອງ" v-model="form.parent_name"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                     </v-row>
                     <v-row dense>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ອາຊີບຜູ້ປົກຄອງ"
-                          v-model="form.parent_job"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ອາຊີບຜູ້ປົກຄອງ" v-model="form.parent_job"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-text-field
-                          outlined
-                          dense
-                          label="ເບີໂທ"
-                          v-model="form.parent_phone"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field outlined dense label="ເບີໂທ" v-model="form.parent_phone"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-file-input
-                          v-model="form.image"
-                          outlined
-                          dense
-                          label="ເລືອກຮູບ"
-                        ></v-file-input>
+                        <v-file-input v-model="form.image" outlined dense label="ເລືອກຮູບ"></v-file-input>
                       </v-col>
                     </v-row>
                     <v-row dense>
                       <v-col cols="12" md="4" sm="4">
-                        <v-select
-                          v-model="form.schoolYear"
-                          :items="yearList"
-                          item-text="name"
-                          item-value="id"
-                          dense
-                          outlined
-                          label="ເລືອກສົກຮຽນ"
-                          :rules="nameRules"
-                          @change="_onGetLevel"
-                        ></v-select>
+                        <v-select v-model="form.schoolYear" :items="yearList" item-text="name" item-value="id" dense
+                          outlined label="ເລືອກສົກຮຽນ" :rules="nameRules" @change="_onGetLevel"></v-select>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-select
-                          v-model="form.levelId"
-                          :items="levelList"
-                          item-text="levelName"
-                          item-value="levelId"
-                          dense
-                          outlined
-                          label="ເລືອກຊັ້ນຮຽນ"
-                          :rules="nameRules"
-                          @change="_onGetClass"
-                        ></v-select>
+                        <v-select v-model="form.levelId" :items="levelList" item-text="levelName" item-value="levelId"
+                          dense outlined label="ເລືອກຊັ້ນຮຽນ" :rules="nameRules" @change="_onGetClass"></v-select>
                       </v-col>
                       <v-col cols="12" md="4" sm="4">
-                        <v-select
-                          v-model="form.classId"
-                          :items="classList"
-                          item-text="name"
-                          item-value="id"
-                          dense
-                          outlined
-                          label="ເລືອກຫ້ອງຮຽນ"
-                          :rules="nameRules"
-                        ></v-select>
+                        <v-select v-model="form.classId" :items="classList" item-text="name" item-value="id" dense
+                          outlined label="ເລືອກຫ້ອງຮຽນ" :rules="nameRules"></v-select>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -221,56 +175,24 @@
                 <v-card flat>
                   <v-card-title>ຄ່າທຳນຽມຕ່າງໆ</v-card-title>
                   <v-card-text>
-                    <v-text-field
-                      v-model="invoice.remark"
-                      label="ຄຳອະທີບາຍເພີ່ມເຕີມ"
-                      :rules="nameRules"
-                    ></v-text-field>
+                    <v-text-field v-model="invoice.remark" label="ຄຳອະທີບາຍເພີ່ມເຕີມ" :rules="nameRules"></v-text-field>
                   </v-card-text>
                   <v-card-text>
-                    <v-row
-                      v-for="(item, index) in invoice.items"
-                      :key="index"
-                      dense
-                    >
+                    <v-row v-for="(item, index) in invoice.items" :key="index" dense>
                       <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                          v-model="item.name"
-                          :items="yearList"
-                          item-text="name"
-                          item-value="id"
-                          dense
-                          outlined
-                          label="ຊື່ລາຍການລົງທະບຽນ"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field v-model="item.name" :items="yearList" item-text="name" item-value="id" dense
+                          outlined label="ຊື່ລາຍການລົງທະບຽນ" :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                          v-model="item.price"
-                          :items="levelList"
-                          item-text="levelName"
-                          item-value="levelId"
-                          dense
-                          outlined
-                          label="ລາຄາ"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field v-model="item.price" :items="levelList" item-text="levelName" item-value="levelId"
+                          dense outlined label="ລາຄາ" :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="3" sm="3">
-                        <v-text-field
-                          v-model="item.remark"
-                          :items="classList"
-                          dense
-                          outlined
-                          label="ໝາຍເຫດ"
-                          :rules="nameRules"
-                        ></v-text-field>
+                        <v-text-field v-model="item.remark" :items="classList" dense outlined label="ໝາຍເຫດ"
+                          :rules="nameRules"></v-text-field>
                       </v-col>
                       <v-col cols="12" md="3" sm="3">
-                        <v-btn color="primary" @click="invoice.items.push({})"
-                          >ເພີ່ມລາຍການ</v-btn
-                        >
+                        <v-btn color="primary" @click="invoice.items.push({})">ເພີ່ມລາຍການ</v-btn>
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -298,7 +220,19 @@ export default {
       yearList: [],
       levelList: [],
       classList: [],
+      student_for_update: [],
+      student_header: [
+        { text: 'ຮູບ', value: 'image' },
+        { text: 'ຊື່ ແລະ ນາມສະກຸນ', value: 'name' },
+        { text: 'ເພດ', value: 'gender' },
+        { text: 'ຫ້ອງຮຽນ', value: 'className' },
+        { text: 'ຊັ້ນຮຽນ', value: 'levelName' },
+        { text: 'ສົກຮຽນ', value: 'schoolYearName' },
+        { text: 'actions', value: 'actions' }
+
+      ],
       form: {},
+      username: '',
       invoice: {
         remark: null,
         items: [
@@ -334,6 +268,22 @@ export default {
     //     formData.append('image', file);
     //     this.imageForm = formData;
     // },
+    async onSearchForRegister(name) {
+      try {
+        await this.$axios
+          .$get(`/student/username/${name}`)
+          .then((data) => {
+            this.student_for_update = data
+            this.form.studentId = data[0]?.id
+            console.log("ForUp:", data)
+          })
+      } catch (error) {
+        swal.fire({
+          icon: 'error',
+          text: error,
+        })
+      }
+    },
     async _onGetLevel(id) {
       try {
         await this.$axios
@@ -365,10 +315,29 @@ export default {
     },
     async _onGetYear() {
       try {
-        await this.$axios.$get('/manage/school-year').then((data) => {
+        await this.$axios.$get('/manage/school-year',{params:{register:true}}).then((data) => {
           console.log(data)
           this.yearList = data
         })
+      } catch (error) {
+        swal.fire({
+          icon: 'error',
+          text: error,
+        })
+      }
+    },
+    async onRegistrationOld() {
+      try {
+       this.form.invoice = this.invoice
+        await this.$axios
+          .$post('/registration/old-student', this.form)
+          .then((data) => {
+            swal.fire({
+              icon: 'success',
+              text: 'ສຳເລັດ',
+            })
+            window.open('/registration-completed/' + data.id)
+          })
       } catch (error) {
         swal.fire({
           icon: 'error',
