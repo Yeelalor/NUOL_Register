@@ -53,7 +53,12 @@ export default {
           .then(({ data }) => {
             this.$cookies.set('userType', data.userType)
             this.$cookies.set('user', data)
-            this.$router.push('/teachers/edit')
+            if(data.userType === 'teacher') {
+              this.$router.push('/grading-save')
+            } else {
+              this.$router.push('/teachers/edit')
+
+            }
           })
           .catch((err) => {
             this.error = true
