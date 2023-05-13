@@ -29,7 +29,7 @@
                   <v-data-table :headers="student_header" :items="student_for_update">
                     <template #[`item.image`]="{ item }">
                       <div>
-                        <v-img :src="`http://192.168.0.2:3001/${item.image}`" max-width="100" contain />
+                        <v-img :src="`http://150.95.91.199:3001/${item.image}`" max-width="100" contain />
                       </div>
                     </template>
                   </v-data-table>

@@ -6,7 +6,7 @@
         style="cursor: pointer"
         @click="$router.push('/')"
       >
-        ໂຮງຮຽນມັດທະຍົມສຶກສາສົມບູນສາທິດ
+        ໂຮງຮຽນປະຖົມແກ້ວບັນດິດ
       </h3>
       <v-spacer></v-spacer>
       <v-btn v-if="isLogin" to="/student" elevation="0">ກວດສອບຄະແນນ</v-btn>
