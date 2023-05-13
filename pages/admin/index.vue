@@ -2,7 +2,7 @@
   <div>
     <v-card max-width="400" class="mx-auto mt-10" elevation="1">
       <v-card-title>ເຂົ້າສູ່ລະບົບລົງທະບຽນ</v-card-title>
-      <v-card-subtitle>ມັດທະຍົມສົມບູນສາທິດ</v-card-subtitle>
+      <v-card-subtitle>ໂຮງຮຽນປະຖົມແກ້ວບັນດິດ</v-card-subtitle>
       <v-card-text>
         <v-row>
           <v-col cols="12">

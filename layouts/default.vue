@@ -93,7 +93,7 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app elevation="0">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <h3>ລະບົບລົງທະບຽນຂອງໂຮງຮຽນ ມ.ສ ສາທິດ</h3>
+      <h3>ລະບົບລົງທະບຽນຂອງໂຮງຮຽນປະຖົມແກ້ວບັນດິດ</h3>
     </v-app-bar>
     <v-main>
       <v-container>
